@@ -78,9 +78,9 @@ jobs:
           name: sign release apk
           command: |
             mkdir -p /tmp/ultrasonic-release
-            jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/ultrasonic/ultrasonic-keystore -storepass ${ULTRASONIC_KEYSTORE_STOREPASS} -keypass ${ULTRASONIC_KEYSTORE_KEYPASS} ultrasonic/build/outputs/apk/release/ultrasonic-release.apk ultrasonic
-            jarsigner -verify ultrasonic/build/outputs/apk/release/ultrasonic-release.apk
-            ${ANDROID_HOME}/build-tools/27.0.0/zipalign -v 4 ultrasonic/build/outputs/apk/release/ultrasonic-release.apk /tmp/ultrasonic-release/ultrasonic-${CIRCLE_TAG}.apk
+            jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/ultrasonic/ultrasonic-keystore -storepass ${ULTRASONIC_KEYSTORE_STOREPASS} -keypass ${ULTRASONIC_KEYSTORE_KEYPASS} ultrasonic/build/outputs/apk/release/ultrasonic-release-unsigned.apk ultrasonic
+            jarsigner -verify ultrasonic/build/outputs/apk/release/ultrasonic-release-unsigned.apk
+            ${ANDROID_HOME}/build-tools/27.0.0/zipalign -v 4 ultrasonic/build/outputs/apk/release/ultrasonic-release-unsigned.apk /tmp/ultrasonic-release/ultrasonic-${CIRCLE_TAG}.apk
       - persist_to_workspace:
           root: /tmp/ultrasonic-release
           paths:
